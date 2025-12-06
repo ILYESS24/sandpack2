@@ -59,6 +59,21 @@ const Home: NextPage<HomeProps> = () => {
 
       <ClipboardProvider>
         <Main>
+          <div style={{
+            position: "fixed",
+            top: "20px",
+            right: "20px",
+            backgroundColor: "#0070f3",
+            color: "white",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            fontSize: "14px",
+            fontWeight: "bold",
+            zIndex: 9999,
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+          }}>
+            🤖 Version avec Assistant IA
+          </div>
           <Hero />
           <Features />
           <Intro />
