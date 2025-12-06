@@ -1,0 +1,60 @@
+services:
+  # Service principal - Landing Page
+  - type: web
+    name: sandpack-landing
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: |
+      yarn install
+      yarn workspace @codesandbox/sandpack-client build
+      yarn workspace @codesandbox/sandpack-react build
+      yarn workspace @codesandbox/sandpack-themes build
+      cd website/landing && yarn build
+    startCommand: cd website/landing && yarn start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_AMPLITUDE_API_KEY
+        sync: false  # À configurer dans le dashboard Render
+    healthCheckPath: /
+    autoDeploy: true
+
+  # Service Documentation
+  - type: web
+    name: sandpack-docs
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: |
+      yarn install
+      yarn workspace @codesandbox/sandpack-client build
+      yarn workspace @codesandbox/sandpack-react build
+      yarn workspace @codesandbox/sandpack-themes build
+      cd website/docs && yarn build
+    startCommand: cd website/docs && yarn start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    healthCheckPath: /
+    autoDeploy: true
+
+  # Service Theme Demo
+  - type: web
+    name: sandpack-theme
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: |
+      yarn install
+      yarn workspace @codesandbox/sandpack-client build
+      yarn workspace @codesandbox/sandpack-react build
+      yarn workspace @codesandbox/sandpack-themes build
+      cd website/theme && yarn build
+    startCommand: cd website/theme && yarn start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    healthCheckPath: /
+    autoDeploy: true
+

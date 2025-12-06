@@ -1,0 +1,6 @@
+{
+  "github": { "silent": true },
+  "buildCommand": "cd ../.. && yarn workspace @codesandbox/sandpack-client build && yarn workspace @codesandbox/sandpack-react build && yarn workspace @codesandbox/sandpack-themes build && yarn workspace codesandbox-theme-docs build && cd website/docs && yarn build",
+  "installCommand": "cd ../.. && yarn install"
+}
+
