@@ -1,91 +1,112 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { Sandpack } from "@codesandbox/sandpack-react";
+import { sandpackDark } from "@codesandbox/sandpack-themes";
 
-import { AdvancedUsage } from "../components/AdvancedUsage";
-import { Banner } from "../components/Banner";
-import { Community } from "../components/Community";
-import { Features } from "../components/Features";
-import { Footer } from "../components/Footer";
-import { Hero } from "../components/Hero";
-import { Intro } from "../components/Intro";
-import { Showcase } from "../components/Showcase";
-import { Users } from "../components/Users";
-import { ClipboardProvider } from "../components/common";
-import { styled } from "../stitches.config";
-import content from "../website.config.json";
-
-const DEFAULT_HOST = "https://sandpack.codesandbox.io";
-
-const Container = styled("section", {
-  display: "flex",
-  flexDirection: "column",
-  height: "100%",
-  minHeight: "100vh",
-});
-
-const Main = styled("main", {
-  alignItems: "center",
-  display: "flex",
-  flexDirection: "column",
-  flex: 1,
-});
-
-interface HomeProps {
-  host: string | undefined;
-}
-const Home: NextPage<HomeProps> = () => {
-  const { global, meta } = content;
-
+const Home: NextPage = () => {
   return (
-    <Container>
+    <>
       <Head>
-        <title>{global.title}</title>
-        <meta content={global.description} name="description" />
+        <title>Sandpack avec Assistant IA</title>
+        <meta name="description" content="Éditeur de code Sandpack avec Assistant IA OpenRouter intégré" />
         <link href="/favicon.ico" rel="icon" />
-
-        {/* Open Graph */}
-        {meta.map(({ name, value }) => {
-          let content = value;
-
-          if (name === "og:url") {
-            content = DEFAULT_HOST;
-          } else if (name === "og:image") {
-            content = `${DEFAULT_HOST}/${content}`;
-          }
-
-          return <meta key={name} content={content} name={name} />;
-        })}
       </Head>
-
-      <ClipboardProvider>
-        <Main>
+      <div style={{ 
+        minHeight: "100vh", 
+        backgroundColor: "#1e1e1e",
+        display: "flex",
+        flexDirection: "column"
+      }}>
+        {/* Header simple */}
+        <header style={{
+          padding: "20px 40px",
+          backgroundColor: "#252525",
+          borderBottom: "1px solid #333",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}>
+          <h1 style={{ 
+            color: "#fff", 
+            margin: 0,
+            fontSize: "24px",
+            fontWeight: "600"
+          }}>
+            Sandpack Editor
+          </h1>
           <div style={{
-            position: "fixed",
-            top: "20px",
-            right: "20px",
             backgroundColor: "#0070f3",
             color: "white",
-            padding: "10px 20px",
-            borderRadius: "8px",
+            padding: "8px 16px",
+            borderRadius: "6px",
             fontSize: "14px",
             fontWeight: "bold",
-            zIndex: 9999,
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
           }}>
-            🤖 Version avec Assistant IA
+            🤖 Assistant IA Activé
           </div>
-          <Hero />
-          <Features />
-          <Intro />
-          <AdvancedUsage />
-          <Showcase />
-          <Users />
-          <Banner />
-          <Community />
-        </Main>
-        <Footer />
-      </ClipboardProvider>
-    </Container>
+        </header>
+
+        {/* Éditeur Sandpack en plein écran */}
+        <div style={{ 
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden"
+        }}>
+          <Sandpack
+            template="react"
+            theme={sandpackDark}
+            files={{
+              "/App.js": {
+                code: `import { useState } from 'react';
+
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div style={{ 
+      padding: '40px', 
+      fontFamily: 'system-ui, sans-serif',
+      textAlign: 'center'
+    }}>
+      <h1>Bienvenue dans Sandpack !</h1>
+      <p style={{ fontSize: '18px', marginBottom: '30px' }}>
+        Compteur: <strong>{count}</strong>
+      </p>
+      <button 
+        onClick={() => setCount(count + 1)}
+        style={{
+          padding: '12px 24px',
+          fontSize: '16px',
+          backgroundColor: '#0070f3',
+          color: 'white',
+          border: 'none',
+          borderRadius: '6px',
+          cursor: 'pointer',
+          fontWeight: '600'
+        }}
+      >
+        Incrémenter
+      </button>
+      <p style={{ marginTop: '30px', color: '#666' }}>
+        Cliquez sur le bouton 🤖 en bas à droite pour ouvrir l'assistant IA
+      </p>
+    </div>
+  );
+}`,
+              },
+            }}
+            options={{
+              showTabs: true,
+              showLineNumbers: true,
+              showInlineErrors: true,
+              editorHeight: "100%",
+              editorWidthPercentage: 50,
+            }}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 
