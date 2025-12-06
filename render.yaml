@@ -5,12 +5,7 @@ services:
     runtime: node
     plan: starter
     region: oregon
-    buildCommand: |
-      yarn install
-      yarn workspace @codesandbox/sandpack-client build
-      yarn workspace @codesandbox/sandpack-react build
-      yarn workspace @codesandbox/sandpack-themes build
-      cd website/landing && yarn build
+    buildCommand: yarn install && yarn workspace @codesandbox/sandpack-client build && yarn workspace @codesandbox/sandpack-react build && yarn workspace @codesandbox/sandpack-themes build && cd website/landing && yarn build
     startCommand: cd website/landing && yarn start
     envVars:
       - key: NODE_ENV
@@ -26,12 +21,7 @@ services:
     runtime: node
     plan: starter
     region: oregon
-    buildCommand: |
-      yarn install
-      yarn workspace @codesandbox/sandpack-client build
-      yarn workspace @codesandbox/sandpack-react build
-      yarn workspace @codesandbox/sandpack-themes build
-      cd website/docs && yarn build
+    buildCommand: yarn install && yarn workspace @codesandbox/sandpack-client build && yarn workspace @codesandbox/sandpack-react build && yarn workspace @codesandbox/sandpack-themes build && cd website/docs && yarn build
     startCommand: cd website/docs && yarn start
     envVars:
       - key: NODE_ENV
@@ -45,12 +35,7 @@ services:
     runtime: node
     plan: starter
     region: oregon
-    buildCommand: |
-      yarn install
-      yarn workspace @codesandbox/sandpack-client build
-      yarn workspace @codesandbox/sandpack-react build
-      yarn workspace @codesandbox/sandpack-themes build
-      cd website/theme && yarn build
+    buildCommand: yarn install && yarn workspace @codesandbox/sandpack-client build && yarn workspace @codesandbox/sandpack-react build && yarn workspace @codesandbox/sandpack-themes build && cd website/theme && yarn build
     startCommand: cd website/theme && yarn start
     envVars:
       - key: NODE_ENV
